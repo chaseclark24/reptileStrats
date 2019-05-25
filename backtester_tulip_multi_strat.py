@@ -14,7 +14,7 @@ testCounter=0
 while 1==1:
 	logdir='C:\\Users\\Chase\\Downloads\\gekko-develop (1)\\gekko-develop' 
 
-	logfiles = sorted([ f for f in os.listdir(logdir) if f.startswith('backtest')])
+	
 	testNo=time.strftime("%Y%m%d-%H%M%S")
 	
 	candleValue=random.choice([5,10,15,30,60,120,240])
@@ -27,7 +27,7 @@ while 1==1:
 
 	#perform API call on Gekko node to backtest strategy and generate profitibility stats
 	url = 'http://localhost:3000/api/backtest/'
-	data = { "watch": { "exchange": "binance", "currency": "USDT", "asset": "BTC" }, "paperTrader": { "feeMaker": 0.25, "feeTaker": 0.25, "feeUsing": "maker", "slippage": 0.05, "simulationBalance": { "asset": 1, "currency": 100 }, "reportRoundtrips": "true", "enabled": "true" }, "tradingAdvisor": { "enabled": "true","method": "StochRSI","candleSize": candleValue,"historySize": historyValue},"StochRSI": {"interval": intervalValue,"thresholds": {"low": lowValue,"high": highValue,"persistence": persistenceValue}},"backtest": {"daterange": {"from": "2019-01-01T23:37:00Z","to": "2019-03-31T21:37:00Z"}},"backtestResultExporter": {"enabled": "true","writeToDisk": "false","data": {"stratUpdates": "false","roundtrips": "true","stratCandles": "false","stratCandleProps": ["open"],"trades": "true"}},"performanceAnalyzer": {"riskFreeReturn": 2,"enabled": "true"}}
+	data = { "watch": { "exchange": "binance", "currency": "USDT", "asset": "BTC" }, "paperTrader": { "feeMaker": 0.25, "feeTaker": 0.25, "feeUsing": "maker", "slippage": 0.05, "simulationBalance": { "asset": 1, "currency": 100 }, "reportRoundtrips": "true", "enabled": "true" }, "tradingAdvisor": { "enabled": "true","method": "tulip-multi-strat","candleSize": 1,"historySize": 10},"tulip-multi-strat": {"optInTimePeriod": 2,"optInFastPeriod": 4,"optInSlowPeriod": 7,"optInSignalPeriod": 23,"candleSize": 1,"historySize": 4,"up": 24,"down": 55,"macd_up": 14,"macd_down": -9},"backtest": {"daterange": {"from": "2019-01-01T23:37:00Z","to": "2019-03-31T21:37:00Z"}},"backtestResultExporter": {"enabled": "true","writeToDisk": "false","data": {"stratUpdates": "false","roundtrips": "true","stratCandles": "false","stratCandleProps": ["open"],"trades": "true"}},"performanceAnalyzer": {"riskFreeReturn": 2,"enabled": "true"}}
 	response = requests.post(url, json=data)
 	print(str(response) + "             " + "Test Count: " + str(testCounter))
 	r = response.json()

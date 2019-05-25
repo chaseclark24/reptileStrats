@@ -14,7 +14,6 @@ testCounter=0
 while 1==1:
 	logdir='C:\\Users\\Chase\\Downloads\\gekko-develop (1)\\gekko-develop' 
 
-	logfiles = sorted([ f for f in os.listdir(logdir) if f.startswith('backtest')])
 	testNo=time.strftime("%Y%m%d-%H%M%S")
 	
 	candleValue=random.choice([5,10,15,30,60,120,240])
