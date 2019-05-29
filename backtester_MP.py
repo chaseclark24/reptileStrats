@@ -5,7 +5,6 @@ import time
 import requests
 import multiprocessing
 
-testCounter =  1
 logDir='C:\\Users\\Chase\\Downloads\\gekko-develop (1)\\gekko-develop\\'
 outFile='\\results.txt'
 sleepTimer=2
@@ -32,7 +31,6 @@ class Parameters(object):
 
 
 def runBackTest():
-	global testCounter
 	parameters = Parameters()
 	url = 'http://localhost:3000/api/backtest/'
 	data = {"watch": {"exchange": "binance", "currency": "USDT", "asset": "BTC"},
@@ -49,7 +47,7 @@ def runBackTest():
 												"stratCandleProps": ["open"], "trades": "true"}},
 			"performanceAnalyzer": {"riskFreeReturn": 2, "enabled": "true"}}
 	response = requests.post(url, json=data)
-	print(str(response) + "             " + "Test Count: " + str(testCounter))
+	print(str(response))
 	r = response.json()
 	testCounter += 1
 	writeLog(r, parameters)
@@ -78,12 +76,11 @@ def writeLog(r, parameters):
 	return
 
 
-#runBackTest()
-
-
 if __name__ == '__main__':
 	jobs = []
+	testCounter = 1
 	while 1==1:
+		print("Test Count: " + str(testCounter))
 		time.sleep(sleepTimer)
 		p = multiprocessing.Process(target=runBackTest)
 		jobs.append(p)
