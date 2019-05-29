@@ -49,7 +49,6 @@ def runBackTest():
 	response = requests.post(url, json=data)
 	print(str(response) )
 	r = response.json()
-	testCounter += 1
 	writeLog(r, parameters)
 	return
 
@@ -89,6 +88,7 @@ if __name__ == '__main__':
 	testCounter = 1
 	jobs = []
 	while 1==1:
+		testCounter += 1
 		print("Test Count: " + str(testCounter))
 		time.sleep(sleepTimer)
 		p = multiprocessing.Process(target=runBackTest)
